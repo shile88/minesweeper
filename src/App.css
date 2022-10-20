@@ -1,0 +1,7 @@
+.App {
+  display: flex;
+  height: 100vh;
+  text-align: center;
+  justify-content: center;
+  font-family: 'Roboto Mono', monospace;
+}
