@@ -77,8 +77,9 @@ const showEmptyCells = (height, width, x, y, data) => {
 const showGrid = (data) => {
   const revealedGrid = [...data];
   revealedGrid.map((row) =>
-    row.map((cell) => {
-      return { ...(cell.isRevealed = true) };
+    row.forEach((cell) => {
+      if (cell.isFlagged !== cell.isMine || !cell.isRevealed !== cell.isFlagged)
+        return { ...(cell.isRevealed = true) };
     })
   );
   return revealedGrid;

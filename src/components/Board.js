@@ -69,7 +69,6 @@ export const Board = ({ param, setStart }) => {
     e.preventDefault();
     setGameStatus({ end: false });
     setGrid(initBoard(param));
-    setStart(false);
   };
 
   const onRightClick = (event, x, y) => {
@@ -78,9 +77,10 @@ export const Board = ({ param, setStart }) => {
     const updatedGrid = [...grid];
     updatedGrid[x][y].isFlagged = !updatedGrid[x][y].isFlagged;
     setGrid(updatedGrid);
-    if (grid[x][y].isFlagged) {
+    if (grid[x][y].isFlagged && minesCounter > 0) {
       setMinesCounter(minesCounter - 1);
-    } else {
+    }
+    if (!grid[x][y].isFlagged && minesCounter < 10) {
       setMinesCounter(minesCounter + 1);
     }
   };
