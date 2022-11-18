@@ -3,7 +3,7 @@ import { Board } from "./Board";
 
 export const Game = () => {
   const [start, setStart] = useState(false);
-  const [param, setParam] = useState({ height: 8, width: 8, mines: 10 });
+  const param = { height: 8, width: 8, mines: 10 };
 
   const handleClick = () => {
     setStart(true);
@@ -17,7 +17,7 @@ export const Game = () => {
       <button onClick={handleClick} hidden={start}>
         PLAY THE GAME!
       </button>
-      {start && <Board param={param} setStart={setStart} setParam={setParam} />}
+      {start && <Board param={param} />}
     </div>
   );
 };

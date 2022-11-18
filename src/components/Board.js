@@ -9,7 +9,7 @@ import {
   checkWinner,
 } from "../helper";
 
-export const Board = ({ param, setStart }) => {
+export const Board = ({ param }) => {
   const initBoard = () => {
     const createEmptyArray = Array(param.width)
       .fill()
@@ -61,7 +61,6 @@ export const Board = ({ param, setStart }) => {
       setGrid(showGrid(updatedGrid));
       setGameStatus({ end: true });
     }
-
     setGrid(updatedGrid);
   };
 
@@ -69,18 +68,23 @@ export const Board = ({ param, setStart }) => {
     e.preventDefault();
     setGameStatus({ end: false });
     setGrid(initBoard(param));
+    setMinesCounter(10);
   };
 
   const onRightClick = (event, x, y) => {
     event.preventDefault();
-    if (grid[x][y].isRevealed) return;
-    const updatedGrid = [...grid];
-    updatedGrid[x][y].isFlagged = !updatedGrid[x][y].isFlagged;
-    setGrid(updatedGrid);
-    if (grid[x][y].isFlagged && minesCounter > 0) {
-      setMinesCounter(minesCounter - 1);
+    if (minesCounter > 0) {
+      if (grid[x][y].isRevealed) return;
+      grid[x][y].isFlagged = !grid[x][y].isFlagged;
+      if (grid[x][y].isFlagged) {
+        setMinesCounter(minesCounter - 1);
+      }
+      if (!grid[x][y].isFlagged) {
+        setMinesCounter(minesCounter + 1);
+      }
     }
-    if (!grid[x][y].isFlagged && minesCounter < 10) {
+    if (minesCounter === 0 && grid[x][y].isFlagged) {
+      grid[x][y].isFlagged = !grid[x][y].isFlagged;
       setMinesCounter(minesCounter + 1);
     }
   };

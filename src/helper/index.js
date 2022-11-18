@@ -63,7 +63,7 @@ const getNeighbors = (data, height, width) => {
 const showEmptyCells = (height, width, x, y, data) => {
   let neighbors = generateNeighbors(x, y, data, height, width);
   neighbors.map((cell) => {
-    if (!cell.isRevealed && (cell.isEmpty || !cell.isMine)) {
+    if (!cell.isRevealed && !cell.isFlagged && (cell.isEmpty || !cell.isMine)) {
       data[cell.x][cell.y].isRevealed = true;
       if (cell.isEmpty) {
         showEmptyCells(height, width, cell.x, cell.y, data);
